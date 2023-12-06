@@ -1,3 +1,5 @@
+import {program} from "commander";
+
 import * as movieService from "./movies/index.js";
 
 const invokeAction = async ({action, id, ...data})=> {
@@ -20,8 +22,13 @@ const invokeAction = async ({action, id, ...data})=> {
     }
 }
 
-// invokeAction({action: "list"})
-// invokeAction({action: "getById", id: "u9kgwNWGi3uUUwh0b8V48"})
-// invokeAction({action: "add", title: "Avatar: way of water", direction: "james Cameron"});
-// invokeAction({action: "updateById", id: "U0rQ1PfGSYwmGrfVtKiaX", title: "Avatar: Way of water"});
-// invokeAction({action: "deleteById", id: "U0rQ1PfGSYwmGrfVtKiaX"});
+program
+    .option("-a, --action <type>")
+    .option("-i, --id <type>")
+    .option("-t, --title <type>")
+    .option("-d, -director <type>");
+
+program.parse();
+
+const options = program.opts();
+invokeAction(options);

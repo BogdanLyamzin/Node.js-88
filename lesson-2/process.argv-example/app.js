@@ -20,8 +20,9 @@ const invokeAction = async ({action, id, ...data})=> {
     }
 }
 
-// invokeAction({action: "list"})
-// invokeAction({action: "getById", id: "u9kgwNWGi3uUUwh0b8V48"})
-// invokeAction({action: "add", title: "Avatar: way of water", direction: "james Cameron"});
-// invokeAction({action: "updateById", id: "U0rQ1PfGSYwmGrfVtKiaX", title: "Avatar: Way of water"});
-// invokeAction({action: "deleteById", id: "U0rQ1PfGSYwmGrfVtKiaX"});
+const actionIndex = process.argv.indexOf("--action");
+if(actionIndex !== -1) {
+    const action = process.argv[actionIndex + 1];
+    invokeAction({action})
+}
+
