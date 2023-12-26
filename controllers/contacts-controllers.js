@@ -1,4 +1,4 @@
-import { HttpError } from "../helpers/HttpError.js";
+import { HttpError } from "../helpers/index.js";
 import * as contactsService from "../models/contacts/index.js";
 import {
   addContactSchema,
@@ -54,24 +54,14 @@ export async function deleteByID(req, res, next) {
 }
 export async function updateByID(req, res, next) {
   try {
-    console.log(req.body);
-    if (Object.keys(req.body).length === 0) {
-      throw HttpError(400, "missing fields");
-    }
-    const { error } = updateContactSchema.validate(req.body);
-
-    if (error) {
-      throw HttpError(400, error);
+    const result = await contactsService.updateContact(
+      req.body,
+      req.params.contactId
+    );
+    if (!result) {
+      throw HttpError(404);
     } else {
-      const result = await contactsService.updateContact(
-        req.body,
-        req.params.contactId
-      );
-      if (!result) {
-        throw HttpError(404);
-      } else {
-        res.json(result);
-      }
+      res.json(result);
     }
   } catch (error) {
     next(error);
