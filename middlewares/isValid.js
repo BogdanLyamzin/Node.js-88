@@ -1,8 +1,10 @@
+import { isValidObjectId } from "mongoose";
 import { HttpError } from "../helpers/index.js";
 import {
   addContactSchema,
   updateContactSchema,
-} from "../schemas/contacts-schemas.js";
+  updateFavoriteContactSchema,
+} from "../models/Contacts.js";
 
 function isValidUpdateContact(req, res, next) {
   const { error } = updateContactSchema.validate(req.body);
@@ -22,7 +24,25 @@ function isValidAddContact(req, res, next) {
     next();
   }
 }
+function isValidFavoriteContact(req, res, next) {
+  const { error } = updateFavoriteContactSchema.validate(req.body);
+
+  if (error) {
+    throw HttpError(400, error);
+  } else {
+    next();
+  }
+}
+function isValidID(req, res, next) {
+  if (!isValidObjectId(req.params.contactId)) {
+    throw HttpError(400, `${req.params.contactId} not valid ID`);
+  } else {
+    next();
+  }
+}
 export default {
   isValidUpdateContact,
   isValidAddContact,
+  isValidFavoriteContact,
+  isValidID,
 };
