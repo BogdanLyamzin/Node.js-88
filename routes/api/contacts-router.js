@@ -1,8 +1,14 @@
 import express from "express";
 import * as contactsControllers from "../../controllers/contacts-controllers.js";
-import { isEmptyBody, isValid } from "../../middlewares/index.js";
+import {
+  authorization,
+  isEmptyBody,
+  isValid,
+} from "../../middlewares/index.js";
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(authorization);
 
 contactsRouter.get("/", contactsControllers.getAll);
 
