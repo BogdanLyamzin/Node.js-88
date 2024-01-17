@@ -21,8 +21,10 @@ const limits = {
 const fileFilter = (req, file, callback)=> {
     const extention = req.originalname.split(".").pop();
     if(extention === "exe") {
-        callback(HttpError(400, ".exe not valid extention"));
+        return callback(HttpError(400, ".exe not valid extention"));
     }
+    
+    callback(null, true);
 }
 
 const upload = multer({
