@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <ul id="message-list"></ul>
+
+    <script>
+        const messageList = document.getElementById("message-list");
+        const ws = new WebSocket("ws://localhost:5000");
+
+        ws.onopen = () => {
+            messageList.insertAdjacentHTML("beforeend", "<li>Connection success</li>");
+        }
+
+        ws.onmessage = e => {
+            messageList.insertAdjacentHTML("beforeend", `<li>${e.data}</li>`);
+        }
+    </script>
+</body>
+
+</html>

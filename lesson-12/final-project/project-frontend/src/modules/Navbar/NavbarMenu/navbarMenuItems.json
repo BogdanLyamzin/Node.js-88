@@ -1,0 +1,14 @@
+[
+    {
+        "id": "1",
+        "text": "My movies page",
+        "link": "/my-movies",
+        "private": true
+    },
+    {
+        "id": "2",
+        "text": "My favorite movies page",
+        "link": "/my-favorite-movies",
+        "private": true
+    }
+]
